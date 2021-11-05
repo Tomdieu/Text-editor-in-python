@@ -1,11 +1,19 @@
 from tkinter import *
 import datetime,sys,time
 import webbrowser
+import os
 from calendar import *
 from tkinter.messagebox import *
 from tkinter.filedialog import askopenfilename,asksaveasfilename
 from tkinter.colorchooser import askcolor
-
+#================================================================
+# Actualizarea codului pe github
+#================================================================
+def push():
+    os.system("./gitpush.sh")
+# ===============================================================
+#
+#================================================================
 def line():
     lin="_"*60
     text.insert(INSERT,lin)
@@ -117,6 +125,7 @@ persomenu.add_command(label='background',command=background)
 helpmenu=Menu(root,tearoff=0)
 menu.add_cascade(label='?',menu=helpmenu)
 helpmenu.add_command(label='about',command=about)
+helpmenu.add_command(label="Github push", command=push)
 helpmenu.add_command(label='website',command=web)
 E=Entry(root)
 E.pack()
