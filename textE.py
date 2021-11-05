@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# FILE: textE.py
+# RUN : python3 textE.py
+#-------------------------------------------------------BEGIN file
 from tkinter import *
 import datetime,sys,time
 import webbrowser
@@ -6,14 +11,21 @@ from calendar import *
 from tkinter.messagebox import *
 from tkinter.filedialog import askopenfilename,asksaveasfilename
 from tkinter.colorchooser import askcolor
+from tkinter import filedialog as fd
 #================================================================
 # Actualizarea codului pe github
 #================================================================
 def push():
     os.system("./gitpush.sh")
 # ===============================================================
-#
+# Tkinter Open File Dialog function
 #================================================================
+def open():
+    filetypes = (('text files', '*.txt'),
+                 ('All files', '*.*'))
+    filename = fd.askopenfile(filetypes=filetypes)
+    text.insert('1.0', filename.readlines())
+    
 def line():
     lin="_"*60
     text.insert(INSERT,lin)
@@ -95,7 +107,7 @@ menu=Menu(root)
 filemenu=Menu(root,tearoff=0)
 root.config(menu=menu)
 menu.add_cascade(label="File",menu=filemenu)
-filemenu.add_command(label="open",command=ope)
+filemenu.add_command(label="Open",command=open)
 filemenu.add_command(label="save",command=save)
 filemenu.add_separator()
 filemenu.add_command(label="Exit",command=kill)
@@ -140,7 +152,11 @@ def save1():
             f.write(text.get(1.0,END))
     
 Button(root,text='Save text',command=save1).pack()
-text=Text(root,height=40,width=100,font=('Arial',12))
+#===============================================================
+# Tkinter text widget
+#===============================================================
+text=Text(root,height=40,width=100,font=('Arial',12), bg='magenta')
+
 scroll=Scrollbar(root,command=text.yview)
 text.config(yscrollcommand=scroll.set)
 scroll.pack(side=RIGHT,fill=Y)
