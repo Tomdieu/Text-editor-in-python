@@ -17,6 +17,7 @@ from tkinter import filedialog as fd
 #================================================================
 def push():
     os.system("./gitpush.sh")
+    
 # ===============================================================
 # Tkinter Open File Dialog function
 #================================================================
@@ -26,33 +27,76 @@ def open():
     filename = fd.askopenfile(filetypes=filetypes)
     text.insert('1.0', filename.readlines())
     
+#===============================================================
+# Text include a line
+#==============================================================
 def line():
     lin="_"*60
     text.insert(INSERT,lin)
+    
+#===============================================================
+# Function to include hour
+#==============================================================
 def ti():
     tim = time.localtime()
     text.insert(INSERT, tim)
+    
+#==============================================================
+# function insert date
+#=============================================================
 def date():
     data=datetime.date.today()
     text.insert(INSERT,data)
+    
+#=============================================================
+# Function text normal
+# ===========================================================
 def normal():
     text.config(font=("Segio UI",20))
+    
+#============================================================
+# Function to bold text
+#===========================================================
 def bold():
     text.config(font=('Segio UI',20,'bold'))
+
+#### =========================================================
+### Function to underline text
+#### ==========================================================
 def underline():
     text.config(font=('Segio UI',20,'underline'))
+    
+#### =========================================
+### Function to italic text
+#### =========================================
 def italic():
     text.config(font=('Segio UI',20,'italic'))
+
+####===========================================
+### Function to text color
+#### ==========================================
 def font():
     (triple,color)=askcolor()
     if color:
         text.config(foreground=color)
+        
+# =====================================================================
+# Close window function
+#======================================================================
 def kill():
     text.destroy()
     sys.exit()
+
+#### =======================================
+### Function to select_all
+#### ========================================
 def select_all(event=None):
     text.tag_add('sel', '1.0', 'end')
     return "break"
+
+# =====================================================================
+# DEPRECATED
+"""
 def ope():
     text.delete(1.0,END)
     file=askopenfilename(initialdir="/",title="select file",filetype=(('executables','*.exe'),('all files','*.*'),('python files','*.py')))
@@ -67,12 +111,17 @@ def ope():
 
     else:
         pass
+"""
+#### ==========================================================
+### Function to save file
+#### =========================================================
 def save():
     filename=asksaveasfilename(initialdir='/',title='save as',filetype=(('c file','*.c,*.c++'),('python file','.py')))
     if filename:
         alltext=text.get(1.0,END)
         with open(filename,'w') as f:
             f.write(alltext)
+            
 def copy():
     text.clipboard_clear()
     text.clipboard_append(text.selection_get())
@@ -85,12 +134,19 @@ def paste():
 def clear():
     sel=text.get(SEL_FIRST,SEL_LAST)
     text.delete(SEL_FIRST,SEL_LAST)
+#==========================================================================
+# Tkinter text clear alltext
+#=========================================================================
 def clearall():
     text.delete(1.0,END)
+#===========================================================================
+# Background color
+#===========================================================================
 def background():
     (triple,color)=askcolor()
     if color:
         text.config(background=color)
+# =========================================================================
 def about():
     ad=Toplevel(root)
     txt="programmer:Tomdieu ivan\n Realised by Navi TOM (c)copyright 2020\n www.pycharm.org"
@@ -103,12 +159,18 @@ n=''
 img=PhotoImage(file='logo.png')
 root.iconphoto(False,img)
 root.title('NAVI EDITOR')
+#======================================================================
+# Tkinter menu
+#=====================================================================
 menu=Menu(root)
 filemenu=Menu(root,tearoff=0)
 root.config(menu=menu)
+#===================================================================
+# File menu
+#==================================================================
 menu.add_cascade(label="File",menu=filemenu)
 filemenu.add_command(label="Open",command=open)
-filemenu.add_command(label="save",command=save)
+filemenu.add_command(label="Save",command=save)
 filemenu.add_separator()
 filemenu.add_command(label="Exit",command=kill)
 modmenu=Menu(root,tearoff=0)
