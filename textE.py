@@ -182,9 +182,16 @@ def web():
 
 root=Tk()
 n=''
-img=PhotoImage(file='logo.png')
-root.iconphoto(False,img)
-root.title('NAVI EDITOR')
+#### ====================================================
+### Image window
+#### ===================================================
+try:
+    img=PhotoImage(file='logo.png')
+    root.iconphoto(False,img)
+except:
+    pass
+
+root.title('Tkinter Text EDITOR')
 #======================================================================
 # Tkinter menu
 #=====================================================================
